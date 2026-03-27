@@ -36,7 +36,12 @@ android {
         compose = true
     }
     androidResources {
-        noCompress += listOf("tflite")
+        noCompress += listOf("onnx", "tflite")
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -56,6 +61,11 @@ dependencies {
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.exoplayer.rtmp)
     implementation(libs.media3.ui)
+    // Sherpa-ONNX (AAR in libs/)
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
+    // Vosk
+    implementation("com.alphacephei:vosk-android:0.3.47")
+    // MediaPipe
     implementation(libs.mediapipe.tasks.audio)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

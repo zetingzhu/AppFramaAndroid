@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AppFrame11"
 include(":app")
-include(":zt-livetotext")
+include(":zt_porterduffxfermode_sample")

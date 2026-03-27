@@ -16,14 +16,52 @@
         app:show_buffering="when_playing"
         app:use_controller="true" />
 
+    <!-- ASR 引擎选择器 —— 顶部半透明条 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#88000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ASR 引擎："
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/engine_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#FF333333"
+            android:popupBackground="#333333"
+            android:textColor="#FF3333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/engine_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="●"
+            android:textColor="#4CAF50"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <!-- AI 字幕叠加层 —— 定位在底部 -->
     <com.trade.appframe11.audio.SubtitleOverlayView
         android:id="@+id/subtitle_overlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="80dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp" />
 
 </FrameLayout>

@@ -1,6 +1,6 @@
 package com.trade.appframe11.audio
 
-import android.util.Log
+
 
 /**
  * 预处理层 —— 音频重采样 & 声道合并。
@@ -54,7 +54,6 @@ class AudioResampler(
         // Step 4: Short → Float32 (归一化到 -1.0 .. 1.0)
         val floatArray = FloatArray(resampled.size) { resampled[it].toFloat() / Short.MAX_VALUE }
 
-        Log.d(TAG, "process: ${pcmData.size} bytes → ${floatArray.size} float samples @${targetSampleRate}Hz mono")
         return floatArray
     }
 

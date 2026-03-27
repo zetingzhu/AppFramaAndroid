@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--支持不同角度擦除的布局-->
+    <declare-styleable name="RoomCutLayout">
+        <!--切角的大小（单位：px）-->
+        <attr name="cutSize" format="dimension" />
+        <!--擦除类型-->
+        <attr name="cutType">
+            <enum name="none" value="0" />
+            <enum name="topLeft" value="1" />
+            <enum name="bottomRight" value="2" />
+            <enum name="both" value="3" />
+        </attr>
+    </declare-styleable>
+
+</resources>

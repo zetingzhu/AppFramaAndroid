@@ -68,6 +68,8 @@ class SubtitleOverlayView @JvmOverloads constructor(
             // 仅更新文字，无需再次动画
             return
         }
+        // 取消可能正在进行的动画，防止 fadeIn/fadeOut 冲突
+        animate().cancel()
         visibility = VISIBLE
         animate()
             .alpha(1f)
@@ -78,6 +80,8 @@ class SubtitleOverlayView @JvmOverloads constructor(
 
     private fun fadeOut() {
         if (visibility == GONE) return
+        // 取消可能正在进行的动画，防止 fadeIn/fadeOut 冲突
+        animate().cancel()
         animate()
             .alpha(0f)
             .setDuration(ANIM_DURATION)
