@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Cover page colors from Figma -->
+    <color name="cover_bg_green">#CEEAD6</color>
+    <color name="cover_bg_blue">#94B9FF</color>
+    <color name="cover_bg_orange">#FFB68C</color>
+    <color name="cover_gradient_red">#E46962</color>
+    <color name="cover_gradient_red_transparent">#00FFFFFF</color>
+    <color name="cover_overlay">#33202124</color>
+    <color name="cover_title_green">#0D652D</color>
+    <color name="cover_badge_bg">#C6FF00</color>
+    <color name="cover_badge_border">#104907</color>
+    <color name="cover_badge_text">#104907</color>
+    <color name="cover_blue_block">#AECBFA</color>
+    <color name="cover_lime_block">#EFFFC3</color>
+    <color name="cover_accent_blue">#4285F4</color>
+</resources>

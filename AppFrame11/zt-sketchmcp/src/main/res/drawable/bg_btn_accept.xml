@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Accept button: Red (#FE421C) background, subtle white border, 84dp rounded corners -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="#FE421C" />
+    <stroke
+        android:width="0.5dp"
+        android:color="#2BFFFFFF" />
+    <corners android:radius="84dp" />
+
+</shape>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppFrame11">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppFrame11">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CoverActivity"
+            android:exported="true"
+            android:label="Android UI Kit Cover"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".FundsPanelActivity"
+            android:exported="true"
+            android:label="Funds Panel"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".NewFundsPanelActivity"
+            android:exported="true"
+            android:label="New Funds Panel"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".AboutYouActivity"
+            android:exported="true"
+            android:label="About you"
+            android:theme="@style/Theme.AppFrame11" />
+    </application>
+
+</manifest>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base green background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#CEEAD6" />
+        </shape>
+    </item>
+
+    <!-- Radial gradient: blue to orange (top-right corner) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="600dp"
+                android:centerX="1.0"
+                android:centerY="0.2"
+                android:startColor="#94B9FF"
+                android:endColor="#FFB68C" />
+        </shape>
+    </item>
+
+    <!-- Linear gradient overlay: red to transparent (165deg ≈ top-left to bottom-right) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="255"
+                android:startColor="#CCE46962"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- Dark overlay rectangle -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#33202124" />
+        </shape>
+    </item>
+
+</layer-list>

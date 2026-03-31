@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Android UI Kit Cover Page
+    Based on Figma design: Android UI Kit (Community)
+    Node: 1:9 (Cover)
+
+    Design elements:
+    - Multi-layer gradient background (green base, radial blue-orange, linear red overlay, dark scrim)
+    - Blue decorative block (#AECBFA) - top left
+    - Lime decorative block (#EFFFC3) - shifted right, slightly lower
+    - Device mockup image - right side
+    - Blue accent block (#4285F4) - mid area
+    - Green bordered block - below device
+    - "Android" title + "UI Kit" title - large text in dark green (#0D652D)
+    - "@AndroidDesign" pill badge - yellow-green (#C6FF00) with dark green border
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cover_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".CoverActivity">
+
+    <!-- Layer 1: Multi-gradient background (fills entire screen) -->
+    <View
+        android:id="@+id/bg_gradient"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_cover_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ============================================ -->
+    <!-- Decorative colored blocks (from Figma layout) -->
+    <!-- ============================================ -->
+
+    <!-- Blue decorative block (top-left, tall narrow) -->
+    <View
+        android:id="@+id/block_blue"
+        android:layout_width="100dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/bg_blue_block"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Lime decorative block (right of blue, slightly lower) -->
+    <View
+        android:id="@+id/block_lime"
+        android:layout_width="84dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/bg_lime_block"
+        app:layout_constraintStart_toEndOf="@id/block_blue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Device mockup image (right side, large, main visual focus) -->
+    <ImageView
+        android:id="@+id/device_mockup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/device_mockup_desc"
+        android:scaleType="fitCenter"
+        android:src="@drawable/device_mockup"
+        app:layout_constraintBottom_toTopOf="@id/guideline_title_top"
+        app:layout_constraintDimensionRatio="H,886:1356"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/block_lime"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.55" />
+
+    <!-- Blue accent block (mid-left, horizontal bar) -->
+    <View
+        android:id="@+id/block_accent_blue"
+        android:layout_width="180dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_accent_blue_block"
+        app:layout_constraintBottom_toTopOf="@id/guideline_title_top"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Green bordered block (right area, near bottom of device) -->
+    <View
+        android:id="@+id/block_green_border"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_green_border_block"
+        app:layout_constraintBottom_toTopOf="@id/guideline_title_top"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ============================================ -->
+    <!-- Guideline: Title section top boundary (~60%) -->
+    <!-- ============================================ -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_title_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.58" />
+
+    <!-- ============================================ -->
+    <!-- Title & Badge section (bottom portion)       -->
+    <!-- ============================================ -->
+
+    <!-- "Android" - first line of the title -->
+    <TextView
+        android:id="@+id/title_android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:lineSpacingMultiplier="0.85"
+        android:text="@string/title_android"
+        android:textColor="@color/cover_title_green"
+        android:textSize="68sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_title_top" />
+
+    <!-- "UI Kit" - second line of the title -->
+    <TextView
+        android:id="@+id/title_ui_kit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:lineSpacingMultiplier="0.85"
+        android:text="@string/title_ui_kit"
+        android:textColor="@color/cover_title_green"
+        android:textSize="68sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_android" />
+
+    <!-- "@AndroidDesign" pill badge -->
+    <TextView
+        android:id="@+id/badge_android_design"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_badge_pill"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="24dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="10dp"
+        android:text="@string/badge_android_design"
+        android:textColor="@color/cover_badge_text"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_ui_kit"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

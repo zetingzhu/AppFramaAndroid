@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Disclosure Statement Bottom Sheet Dialog
+     Based on Figma design: 西班牙金融项目-web
+     Node: 11987:4735 (披露声明)
+
+     Structure:
+     - Semi-transparent dark overlay background
+     - Bottom sheet with gradient header (red → warm white)
+     - Logo image positioned at top center
+     - Title: "Declaración de Divulgación"
+     - Scrollable text content area with frosted glass effect
+     - Checkbox + agreement text
+     - Two buttons: Rechazar (reject) & Aceptar (accept)
+     - Bottom handle bar
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B50A0A0A">
+
+    <!-- Bottom Sheet Container -->
+    <LinearLayout
+        android:id="@+id/bottomSheetContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <!-- Logo image floating above the dialog top -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <!-- Gradient header background (red to warm white) -->
+            <View
+                android:id="@+id/headerGradient"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_dialog_header_gradient" />
+
+            <!-- Logo centered at the top, overlapping the header -->
+            <ImageView
+                android:id="@+id/ivDialogLogo"
+                android:layout_width="80dp"
+                android:layout_height="76dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp"
+                android:contentDescription="@string/dialog_logo_desc"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_dialog_logo" />
+        </FrameLayout>
+
+        <!-- Main content area with warm background -->
+        <LinearLayout
+            android:id="@+id/contentArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF3E8"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvDialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/dialog_title"
+                android:textColor="#181818"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Scrollable text content container with frosted glass style -->
+            <ScrollView
+                android:id="@+id/scrollContent"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/bg_dialog_content_card"
+                android:fadeScrollbars="true"
+                android:fillViewport="false"
+                android:overScrollMode="never"
+                android:scrollbarSize="3dp"
+                android:scrollbarThumbVertical="@drawable/scrollbar_thumb">
+
+                <TextView
+                    android:id="@+id/tvDisclosureContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingMultiplier="1.28"
+                    android:padding="20dp"
+                    android:text="@string/dialog_disclosure_text"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </ScrollView>
+
+            <!-- Checkbox + Agreement text row -->
+            <LinearLayout
+                android:id="@+id/checkboxRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Custom circular checkbox -->
+                <View
+                    android:id="@+id/checkboxCircle"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_checkbox_circle" />
+
+                <!-- Agreement text -->
+                <TextView
+                    android:id="@+id/tvAgreementText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingMultiplier="1.28"
+                    android:text="@string/dialog_agreement_text"
+                    android:textColor="#181818"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Buttons row -->
+            <LinearLayout
+                android:id="@+id/buttonsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <!-- Rechazar (Reject) button -->
+                <TextView
+                    android:id="@+id/btnReject"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_reject"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="@string/dialog_btn_reject"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Aceptar (Accept) button -->
+                <TextView
+                    android:id="@+id/btnAccept"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_accept"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="@string/dialog_btn_accept"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Bottom Handle Bar area -->
+        <FrameLayout
+            android:id="@+id/bottomHandleArea"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="#FFF3E8">
+
+            <View
+                android:id="@+id/handleBar"
+                android:layout_width="150dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_handle_bar" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

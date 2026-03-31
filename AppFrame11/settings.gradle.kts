@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "AppFrame11"
 include(":app")
 include(":zt_porterduffxfermode_sample")
+include(":zt-sketchmcp")
+include(":zt-liveupdate")
