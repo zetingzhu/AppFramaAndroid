@@ -1,0 +1,73 @@
+﻿> Task :zt-kotlinmcp:preBuild UP-TO-DATE
+> Task :zt-kotlinmcp:preDebugBuild UP-TO-DATE
+> Task :zt-kotlinmcp:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :zt-kotlinmcp:dataBindingMergeDependencyArtifactsDebug UP-TO-DATE
+> Task :zt-kotlinmcp:generateDebugResources UP-TO-DATE
+> Task :zt-kotlinmcp:mergeDebugResources UP-TO-DATE
+> Task :zt-kotlinmcp:packageDebugResources UP-TO-DATE
+> Task :zt-kotlinmcp:processDebugNavigationResources UP-TO-DATE
+> Task :zt-kotlinmcp:parseDebugLocalResources UP-TO-DATE
+> Task :zt-kotlinmcp:dataBindingGenBaseClassesDebug UP-TO-DATE
+> Task :zt-kotlinmcp:generateDebugRFile UP-TO-DATE
+> Task :zt-kotlinmcp:javaPreCompileDebug UP-TO-DATE
+> Task :zt-kotlinmcp:generateDebugAssets UP-TO-DATE
+> Task :zt-kotlinmcp:mergeDebugAssets UP-TO-DATE
+> Task :zt-kotlinmcp:compressDebugAssets UP-TO-DATE
+> Task :zt-kotlinmcp:checkDebugDuplicateClasses UP-TO-DATE
+> Task :zt-kotlinmcp:desugarDebugFileDependencies UP-TO-DATE
+> Task :zt-kotlinmcp:mergeExtDexDebug UP-TO-DATE
+> Task :zt-kotlinmcp:mergeLibDexDebug UP-TO-DATE
+> Task :zt-kotlinmcp:checkDebugAarMetadata UP-TO-DATE
+> Task :zt-kotlinmcp:compileDebugNavigationResources UP-TO-DATE
+> Task :zt-kotlinmcp:mapDebugSourceSetPaths UP-TO-DATE
+> Task :zt-kotlinmcp:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :zt-kotlinmcp:extractDeepLinksDebug UP-TO-DATE
+> Task :zt-kotlinmcp:processDebugMainManifest UP-TO-DATE
+> Task :zt-kotlinmcp:processDebugManifest UP-TO-DATE
+> Task :zt-kotlinmcp:processDebugManifestForPackage UP-TO-DATE
+> Task :zt-kotlinmcp:processDebugResources UP-TO-DATE
+> Task :zt-kotlinmcp:mergeDebugJniLibFolders UP-TO-DATE
+> Task :zt-kotlinmcp:mergeDebugNativeLibs NO-SOURCE
+> Task :zt-kotlinmcp:stripDebugDebugSymbols NO-SOURCE
+> Task :zt-kotlinmcp:validateSigningDebug UP-TO-DATE
+> Task :zt-kotlinmcp:writeDebugAppMetadata UP-TO-DATE
+> Task :zt-kotlinmcp:writeDebugSigningConfigVersions UP-TO-DATE
+
+> Task :zt-kotlinmcp:compileDebugKotlin FAILED
+.\gradlew.bat : e: file:///E:/3-ZTAndroidWork/AppFramaA
+ndroid/AppFrame11/zt-kotlinmcp/src/main/java/com/trade/
+zt_kotlinmcp/ui/CityAdapter.kt:74:22 Unresolved referen
+ce 'iconRes'.
+所在位置 行:1 字符: 6
++ $x = .\gradlew.bat :zt-kotlinmcp:assembleDebug 2>&1 ;
+ $x | Out-File - ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (e: file:/ 
+   //E:/3...ence 'iconRes'.:String) [], RemoteExcepti  
+  on
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+e: file:///E:/3-ZTAndroidWork/AppFramaAndroid/AppFrame1
+1/zt-kotlinmcp/src/main/java/com/trade/zt_kotlinmcp/ui/
+CityAdapter.kt:75:55 Unresolved reference 'iconRes'.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':zt-kotlinmcp:compileDebugKo
+tlin'.
+> A failure occurred while executing org.jetbrains.kotl
+in.compilerRunner.GradleCompilerRunnerWithWorkers$Gradl
+eKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log out
+put.
+> Run with --scan to generate a Build Scan (Powered by 
+Develocity).
+> Get more help at https://help.gradle.org.
+
+29 actionable tasks: 1 executed, 28 up-to-date
+BUILD FAILED in 1s
