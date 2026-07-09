@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="412dp"
+    android:height="44dp"
+    android:viewportWidth="412"
+    android:viewportHeight="44">
+
+    <!-- Back Arrow Path -->
+    <path
+        android:pathData="M36.25,27.498 L29.75,20.998 L36.25,14.498"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.38298"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

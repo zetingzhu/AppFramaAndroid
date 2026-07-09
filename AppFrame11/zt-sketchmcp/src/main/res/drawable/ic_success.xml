@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="84dp"
+    android:height="84dp"
+    android:viewportWidth="84"
+    android:viewportHeight="84">
+
+    <!-- Circle background with linear gradient fill -->
+    <path
+        android:pathData="M0,42 C0,65.196 18.804,84 42,84 C65.196,84 84,65.196 84,42 C84,18.804 65.196,0 42,0 C18.804,0 0,18.804 0,42 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="53.8054"
+                android:startY="42.0"
+                android:endX="84.0"
+                android:endY="42.0">
+                <item android:color="#C5FC78" android:offset="0.0" />
+                <item android:color="#AFD1FF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Checkmark icon stroke path -->
+    <path
+        android:pathData="M26.5,47.5 C26.8587,48.2173 32.3358,53.5439 36.5879,57.641 C37.3723,58.3968 38.6165,58.3835 39.3868,57.6132 L61.5,35.5"
+        android:strokeColor="#1349FB"
+        android:strokeWidth="8"
+        android:strokeLineCap="round" />
+</vector>

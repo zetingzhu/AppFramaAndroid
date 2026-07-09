@@ -39,6 +39,21 @@
             android:exported="true"
             android:label="About you"
             android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".SubmitSuccessActivity"
+            android:exported="true"
+            android:label="Submit Success"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".OverdueActivity"
+            android:exported="true"
+            android:label="Overdue Order Details"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".BasicInfoActivity"
+            android:exported="true"
+            android:label="Basic Information"
+            android:theme="@style/Theme.AppFrame11" />
     </application>
 
 </manifest>

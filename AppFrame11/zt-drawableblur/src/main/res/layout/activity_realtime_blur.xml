@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Self-contained BlurView -->
+    <com.trade.zt_drawableblur.RealtimeBlurView
+        android:id="@+id/realtime_blur_view"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="bottom"
+        android:elevation="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="80dp"
+        android:elevation="13dp"
+        android:text="@string/self_contained_realtime_blur"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</FrameLayout>

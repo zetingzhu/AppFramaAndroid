@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">zt-DrawableBlur</string>
+    <string name="blur_banner_demo">Blur Banner Demo</string>
+    <string name="blurry_floating_banner">Blurry Floating Banner</string>
+    <string name="go_to_blur_banner_demo">Go to Manual Blur Demo</string>
+    <string name="go_to_realtime_blur_demo">Go to Realtime Blur Demo</string>
+    <string name="realtime_blur_demo">Realtime Blur Demo</string>
+    <string name="blurry_library_demo">Blurry Library Demo</string>
+    <string name="go_to_blurry_library_demo">Go to Blurry Library Demo</string>
+    <string name="self_contained_realtime_blur">Self-Contained Realtime Blur</string>
+    <string name="blurry_library_effect">Blurry Library Effect</string>
+    <string name="mmin18_realtime_blur_demo">mmin18 Blur Demo</string>
+    <string name="go_to_mmin18_blur_demo">Go to mmin18 Blur Demo</string>
+    <string name="mmin18_blur_text">mmin18 RealtimeBlurView</string>
+</resources>

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F6F8FA">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp">
+
+        <!-- Blue Header Background Area -->
+        <View
+            android:id="@+id/header_bg"
+            android:layout_width="match_parent"
+            android:layout_height="526dp"
+            android:background="@drawable/bg_submit_header_gradient"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Yellow Glow Top Right Decor -->
+        <View
+            android:id="@+id/yellow_glow"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="-20dp"
+            android:background="@drawable/bg_yellow_glow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Subtle blur circle overlay -->
+        <ImageView
+            android:id="@+id/bg_blur_circle"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="-29dp"
+            android:layout_marginTop="272dp"
+            android:src="@drawable/bg_blur_circle"
+            android:alpha="0.65"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <!-- Back Navigation Bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/back_bar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="45dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_overdue_back"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalles del pedido"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Loan Header Block (Frame 2147225564) -->
+        <LinearLayout
+            android:id="@+id/loan_amount_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="137dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Préstamo"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S/"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1,000.00"
+                    android:textColor="#FFFFFF"
+                    android:textSize="48sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Status & Actions Stack (Frame 2147225565) -->
+        <LinearLayout
+            android:id="@+id/actions_stack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="266dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Item 1: Overdue status banner (Group 87) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_overdue_banner">
+
+                <!-- Left Star -->
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="33dp"
+                    android:src="@drawable/ic_overdue_star1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <!-- Center text stack -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vencido"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vencido por 3 días"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif" />
+
+                </LinearLayout>
+
+                <!-- Right Star -->
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="33dp"
+                    android:src="@drawable/ic_overdue_star1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Polygon indicator arrow below banner -->
+            <ImageView
+                android:layout_width="31dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_overdue_polygon"
+                tools:ignore="ContentDescription" />
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <!-- Item 2: Pagar ahora (Group 85) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_pay_now"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_glass_card_16"
+                android:clickable="true"
+                android:focusable="true">
+
+                <!-- Icon + Label Container -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_overdue_usdc"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Pagar ahora"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Chevron Right -->
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:src="@drawable/ic_overdue_chevron_right"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <!-- Item 3: Prórroga de pago (Group 86) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_extension"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_glass_card_16"
+                android:clickable="true"
+                android:focusable="true">
+
+                <!-- Icon + Label Container -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_overdue_wallet"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Prórroga de pago"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Chevron Right -->
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:src="@drawable/ic_overdue_chevron_right"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <!-- Loan Details Title (Group 82) -->
+        <TextView
+            android:id="@+id/tv_details_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:text="Detalle del préstamo"
+            android:textColor="#141A36"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/actions_stack"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Loan Details Table Card (Container 3:4104) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="16dp"
+            android:background="@drawable/bg_details_card"
+            app:layout_constraintTop_toBottomOf="@id/tv_details_header">
+
+            <!-- Row 1: Monto solicitado -->
+            <TextView
+                android:id="@+id/lbl_monto_sol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monto solicitado"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S/ 5,000.00"
+                android:textColor="#141A36"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Row 2: Fecha de pago -->
+            <TextView
+                android:id="@+id/lbl_fecha_p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Fecha de pago"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@id/lbl_monto_sol"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30/01/2026"
+                android:textColor="#141A36"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/lbl_fecha_p"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Row 3: Desembolso a cuenta -->
+            <TextView
+                android:id="@+id/lbl_desembolso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Desembolso a cuenta"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@id/lbl_fecha_p"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6404****9404"
+                android:textColor="#141A36"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/lbl_desembolso"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Row 4: Interés -->
+            <TextView
+                android:id="@+id/lbl_interes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Interés"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@id/lbl_desembolso"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S/ 400.00"
+                android:textColor="#141A36"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/lbl_interes"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Row 5: Multa por mora -->
+            <TextView
+                android:id="@+id/lbl_multa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Multa por mora"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@id/lbl_interes"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S/ 0.00"
+                android:textColor="#141A36"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/lbl_multa"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Divider -->
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#E5E7EB"
+                app:layout_constraintTop_toBottomOf="@id/lbl_multa" />
+
+            <!-- Row 6: Monto total del pago -->
+            <TextView
+                android:id="@+id/lbl_monto_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Monto total del pago"
+                android:textColor="#141A36"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S/ 5,400.00"
+                android:textColor="#FE3E38"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/lbl_monto_total"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

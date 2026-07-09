@@ -38,11 +38,14 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         val routes = listOf(
-            RouteItem("显示披露声明弹框", Color(0xFFFE421C)) { showDisclosureDialog() },
+            RouteItem("你是什么模型，介绍一下你自己 显示披露声明弹框", Color(0xFFFE421C)) { showDisclosureDialog() },
             RouteItem("显示资金面板", Color(0xFF2F75F0)) { startActivity(Intent(this, FundsPanelActivity::class.java)) },
             RouteItem("显示 Cover 页面", Color(0xFF27AE60)) { startActivity(Intent(this, CoverActivity::class.java)) },
             RouteItem("显示新版资金面板", Color(0xFF1A1C33)) { startActivity(Intent(this, NewFundsPanelActivity::class.java)) },
-            RouteItem("填写 About you 表单", Color(0xFFF2994A)) { startActivity(Intent(this, AboutYouActivity::class.java)) }
+            RouteItem("填写 About you 表单", Color(0xFFF2994A)) { startActivity(Intent(this, AboutYouActivity::class.java)) },
+            RouteItem("显示提交成功页面", Color(0xFF1349FB)) { startActivity(Intent(this, SubmitSuccessActivity::class.java)) },
+            RouteItem("显示已逾期订单详情页面", Color(0xFFFE3E38)) { startActivity(Intent(this, OverdueActivity::class.java)) },
+            RouteItem("填写基本信息1", Color(0xFF8E44AD)) { startActivity(Intent(this, BasicInfoActivity::class.java)) }
         )
 
         setContent {
