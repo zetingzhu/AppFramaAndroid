@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Log In</string>
     <string name="s1_1">Log In</string>
     <string name="s1_2">Sign Up</string>
     <string name="s1_3">Email</string>
@@ -4854,7 +4853,7 @@ A global partner can get up to 50%% of commission as rebate if invitees execute 
     <string name="s22_19">Above stadegies are for reference only, and can\'t be regarded as the basis to buy or sell.</string>
     <string name="s22_20">Previous value</string>
     <string name="s22_21">Forecast</string>
-    <string name="s22_22">Actual value  forecast, bull; Actual value> forecast, bear</string>
+    <string name="s22_22">Actual value forecast, bull; Actual value> forecast, bear</string>
     <string name="s22_23">Data Review</string>
     <string name="s22_24">Average Value in 30 days</string>
     <string name="s22_25">Maximum Fluctuation Range in 30 days</string>

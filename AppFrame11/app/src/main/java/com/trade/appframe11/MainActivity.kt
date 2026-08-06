@@ -1,5 +1,6 @@
 package com.trade.appframe11
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,15 +21,46 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.media3.ui.PlayerView
+import com.google.firebase.installations.FirebaseInstallations
+import com.trade.appframe11.DeviceIdUtils.AppSetIdCallback
 import com.trade.appframe11.audio.AudioAiPipelineManager
 import com.trade.appframe11.audio.SubtitleOverlayView
 import com.trade.appframe11.audio.engines.AsrEngineType
 
 @UnstableApi
 class MainActivity : AppCompatActivity() {
-
+    val TAG = MainActivity::class.java.simpleName
     private var player: ExoPlayer? = null
     private var pipelineManager: AudioAiPipelineManager? = null
+
+
+    fun getDeviceUtil(context: Context) {
+        // 1. 获取 Android ID
+        val androidId = DeviceIdUtils.getAndroidId(context)
+        Log.d(TAG, "DeviceId Android ID: " + androidId)
+
+        // 2. 获取 DRM ID（推荐放在子线程）
+        Thread(Runnable {
+            val drmId = DeviceIdUtils.getDrmId()
+            Log.d(TAG, "DeviceId DRM ID: " + drmId)
+        }).start()
+
+        // 3. 异步获取 App Set ID
+        DeviceIdUtils.getAppSetId(context, object : AppSetIdCallback {
+            override fun onSuccess(appSetId: String, scope: Int) {
+                Log.d(TAG, " DeviceIdApp Set ID: " + appSetId + " (Scope: " + scope + ")")
+            }
+
+            override fun onFailure(e: java.lang.Exception) {
+                Log.e(TAG, "DeviceId 获取 App Set ID 失败", e)
+            }
+        })
+
+//        FirebaseInstallations.getInstance().getId()
+//            .addOnSuccessListener({ id ->
+//                Log.e(TAG, "DeviceId 获取 Firebase Installation ID (FID) : " + id)
+//            })
+    }
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        getDeviceUtil(this)
         // ---------- 初始化 AI 管线 ----------
         val subtitleOverlay = findViewById<SubtitleOverlayView>(R.id.subtitle_overlay)
         val engineStatus = findViewById<TextView>(R.id.engine_status)
@@ -113,6 +145,7 @@ class MainActivity : AppCompatActivity() {
                     pipelineManager?.switchEngine(selected)
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }

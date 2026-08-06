@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">zt_dialogFragmentWindow</string>
+    <string name="host_demo_title">DialogHost 层级测试</string>
+    <string name="host_demo_show_a">打开弹框 A</string>
+    <string name="host_demo_show_a_then_b_top">先开 A，再开 B（置顶）</string>
+    <string name="host_demo_show_a_then_b_bottom">先开 A，再开 B（压底）</string>
+    <string name="host_demo_show_c_bottom">打开弹框 C（全屏宽贴底）</string>
+    <string name="host_demo_dismiss_all">关闭全部弹框</string>
+    <string name="dialog_a_title">弹框 A</string>
+    <string name="dialog_a_desc">绿色弹框。可从这里再打开 B，验证同一 Host 内多层叠放。</string>
+    <string name="dialog_a_open_b_top">打开 B（置顶盖住我）</string>
+    <string name="dialog_a_open_b_bottom">打开 B（压到底层）</string>
+    <string name="dialog_b_title">弹框 B</string>
+    <string name="dialog_b_desc">橙色弹框。可再打开 A 置顶，验证多处逻辑连续叠层。</string>
+    <string name="dialog_b_open_a_top">打开 A（置顶盖住我）</string>
+    <string name="dialog_c_title">弹框 C</string>
+    <string name="dialog_c_desc">蓝色底部弹层：宽度全屏，贴在屏幕下方。</string>
+    <string name="dialog_c_open_a">打开弹框 A（置顶）</string>
+    <string name="dialog_close">关闭</string>
+</resources>
