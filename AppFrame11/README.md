@@ -28,3 +28,6 @@ google 小红点 BadgeDrawable 使用
 
 [zt_dialogfragmentwindow](zt_dialogfragmentwindow)
 实现dialogFragment 中多个dialog 的层级插入
+
+[zt_speed_device](zt_speed_device)
+各种设备id和密钥验证

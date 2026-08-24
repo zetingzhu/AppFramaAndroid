@@ -1,0 +1,25 @@
+{
+  "tokenPayloadExternal": {
+    "accountDetails": {
+      "appLicensingVerdict": "UNEVALUATED"
+    },
+    "appIntegrity": {
+      "appRecognitionVerdict": "UNRECOGNIZED_VERSION",
+      "certificateSha256Digest": [
+        "lKKHJ5S7UtB9r8nu5CT45fyB-lUIFGHFQeZHL87Szjo"
+      ],
+      "packageName": "com.rynatsa.xtrendspeed_debug",
+      "versionCode": "1"
+    },
+    "deviceIntegrity": {
+      "deviceRecognitionVerdict": [
+        "MEETS_DEVICE_INTEGRITY"
+      ]
+    },
+    "requestDetails": {
+      "requestHash": "6e32cfd4d57f1b04772bd4ff5574aa25ada25df8946b7b678d2f3cab5421254d",
+      "requestPackageName": "com.rynatsa.xtrendspeed_debug",
+      "timestampMillis": "1787292099545"
+    }
+  }
+}

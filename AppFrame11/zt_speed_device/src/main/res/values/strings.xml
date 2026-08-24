@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">zt_speed_device</string>
+    <string name="entry_title">设备信息演示</string>
+    <string name="entry_device_info">查看 getAllDeviceInfoJson</string>
+    <string name="entry_device_recall">Play Integrity Device Recall 测试</string>
+    <string name="device_info_title">设备信息 JSON</string>
+    <string name="device_recall_title">Device Recall 测试</string>
+    <string name="device_recall_cloud_project">Cloud Project Number</string>
+    <string name="device_recall_warmup">Warmup</string>
+    <string name="device_recall_request_token">Request Token</string>
+    <string name="entry_integrity_remediation">Integrity 修复对话框验证</string>
+    <string name="integrity_remediation_title">Integrity Remediation</string>
+    <string name="integrity_remediation_show_recommended">按服务端 JSON 推荐弹框</string>
+    <string name="integrity_remediation_show_get_licensed">强制 GET_LICENSED (1)</string>
+    <string name="integrity_remediation_show_get_integrity">强制 GET_INTEGRITY (4)</string>
+</resources>

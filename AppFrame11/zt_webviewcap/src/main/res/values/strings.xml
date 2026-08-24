@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">zt_WebviewCap</string>
+    <string name="entry_title">WebView capturePicture 演示</string>
+    <string name="entry_compose">Compose WebView 截图</string>
+    <string name="entry_xml">XML WebView 截图</string>
+    <string name="compose_capture_title">Compose 截图</string>
+    <string name="xml_capture_title">XML 截图</string>
+    <string name="action_capture">截图</string>
+    <string name="capture_preview_title">截图预览</string>
+    <string name="capture_saved">已保存：%1$s</string>
+    <string name="capture_save_failed">截图预览成功，但保存文件失败</string>
+    <string name="capture_webview_not_ready">WebView 尚未就绪</string>
+</resources>
