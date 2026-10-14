@@ -7,6 +7,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.MediaDrm
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -19,12 +20,14 @@ import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.WindowManager
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
 import java.util.Locale
 import java.util.TimeZone
+import java.util.UUID
 
 object MyDeviceIdUtil {
 
@@ -133,7 +136,10 @@ object MyDeviceIdUtil {
     private fun findExistingFileUri(context: Context): Uri? {
         findExistingFileUri(context, getDownloadsCollectionUri())?.let { return it }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            findExistingFileUri(context, MediaStore.Files.getContentUri("external"))?.let { return it }
+            findExistingFileUri(
+                context,
+                MediaStore.Files.getContentUri("external")
+            )?.let { return it }
         }
         return null
     }
@@ -183,7 +189,13 @@ object MyDeviceIdUtil {
         selectionArgs: Array<String>
     ): Uri? {
         return try {
-            resolver.query(collection, projection, selection, selectionArgs, "${MediaStore.MediaColumns.DATE_MODIFIED} DESC")
+            resolver.query(
+                collection,
+                projection,
+                selection,
+                selectionArgs,
+                "${MediaStore.MediaColumns.DATE_MODIFIED} DESC"
+            )
                 ?.use { cursor ->
                     val idColumn = cursor.getColumnIndex(MediaStore.MediaColumns._ID)
                     if (idColumn < 0) {
@@ -278,8 +290,9 @@ object MyDeviceIdUtil {
      */
     private fun getLegacyBackupFile(): File? {
         return try {
-            val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                ?: return null
+            val downloadDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    ?: return null
             File(downloadDir, "$LEGACY_DIR_NAME${File.separator}$FILE_NAME")
         } catch (e: Exception) {
             Log.e(TAG, "getLegacyBackupFile failed", e)
@@ -335,6 +348,7 @@ object MyDeviceIdUtil {
         // ==========================================
         // Settings.Secure.ANDROID_ID: 64位十六进制字符串，恢复出厂设置或应用签名/密钥更改时可能会重置
         info["android_id"] = getAndroidId(context)
+        info["media_drm_id"] = tryGetMediaDrmId()
 
         // ==========================================
         // 2. 硬件基因与构建信息 (Hardware Specs)
@@ -346,14 +360,16 @@ object MyDeviceIdUtil {
         info["hardware"] = Build.HARDWARE           // 芯片/硬件平台 (例如: "qcom", "tensor")
         info["board"] = Build.BOARD                 // 主板名称 (例如: "kalama")
         info["device"] = Build.DEVICE               // 工业设计设备名 (例如: "vermeer")
-        info["supported_abis"] = Build.SUPPORTED_ABIS.toList() // 支持的 CPU 架构指令集列表 (例如: ["arm64-v8a", "armeabi-v7a"])
+        info["supported_abis"] =
+            Build.SUPPORTED_ABIS.toList() // 支持的 CPU 架构指令集列表 (例如: ["arm64-v8a", "armeabi-v7a"])
 
         // ==========================================
         // 3. 系统与固件版本信息 (OS Version)
         // ==========================================
         info["os_release"] = Build.VERSION.RELEASE  // Android 系统版本号 (例如: "14", "15")
         info["sdk_int"] = Build.VERSION.SDK_INT      // 系统 API Level (例如: 34, 35)
-        info["security_patch"] = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) Build.VERSION.SECURITY_PATCH else "Unknown" // 安全补丁日期 (例如: "2026-05-05")
+        info["security_patch"] =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) Build.VERSION.SECURITY_PATCH else "Unknown" // 安全补丁日期 (例如: "2026-05-05")
         info["display_build_id"] = Build.DISPLAY    // 厂商系统版本展示 ID/ROM 固件版本号 (例如: "UKQ1.230804.001")
         info["fingerprint"] = Build.FINGERPRINT      // 唯一标识此 Build 固件的指纹签名串 (包含品牌、型号、版本等信息的组合长串)
 
@@ -368,7 +384,8 @@ object MyDeviceIdUtil {
         info["screen_width_px"] = displayMetrics.widthPixels   // 屏幕绝对像素宽度 (像素 px)
         info["screen_height_px"] = displayMetrics.heightPixels // 屏幕绝对像素高度 (像素 px)
         info["density_dpi"] = displayMetrics.densityDpi       // 屏幕像素密度 DPI (例如: 480 dpi)
-        info["density"] = displayMetrics.density               // dp 与 px 的转换系数 (例如: 3.0，代表 1dp = 3px)
+        info["density"] =
+            displayMetrics.density               // dp 与 px 的转换系数 (例如: 3.0，代表 1dp = 3px)
 
         // ==========================================
         // 5. 内部存储容量 (ROM)
@@ -380,7 +397,8 @@ object MyDeviceIdUtil {
         val availableBlocks = statFs.availableBlocksLong
 
         info["rom_total_bytes"] = totalBlocks * blockSize           // 内部存储 (ROM) 总大小 (单位: 字节 Byte)
-        info["rom_available_bytes"] = availableBlocks * blockSize   // 内部存储 (ROM) 剩余可用空间 (单位: 字节 Byte)
+        info["rom_available_bytes"] =
+            availableBlocks * blockSize   // 内部存储 (ROM) 剩余可用空间 (单位: 字节 Byte)
 
         // ==========================================
         // 6. 运行内存 (RAM)
@@ -403,13 +421,16 @@ object MyDeviceIdUtil {
 
         val timeZone = TimeZone.getDefault()
         info["timezone_id"] = timeZone.id                   // 时区标识符 (例如: "Asia/Shanghai")
-        info["timezone_display_name"] = timeZone.getDisplayName(false, TimeZone.SHORT) // 时区简称 (例如: "GMT+08:00")
-        info["timezone_raw_offset"] = timeZone.rawOffset    // 与标准 UTC 时间的毫秒偏移量 (例如: 28800000 毫秒 = +8小时)
+        info["timezone_display_name"] =
+            timeZone.getDisplayName(false, TimeZone.SHORT) // 时区简称 (例如: "GMT+08:00")
+        info["timezone_raw_offset"] =
+            timeZone.rawOffset    // 与标准 UTC 时间的毫秒偏移量 (例如: 28800000 毫秒 = +8小时)
 
         // ==========================================
         // 8. 电池状态 (Battery Status)
         // ==========================================
-        val batteryIntent = context.registerReceiver(null,
+        val batteryIntent = context.registerReceiver(
+            null,
             IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         )
         val level = batteryIntent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
@@ -417,14 +438,17 @@ object MyDeviceIdUtil {
         val status = batteryIntent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
         val plugType = batteryIntent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
 
-        info["battery_level_percent"] = if (level >= 0 && scale > 0) (level * 100 / scale.toFloat()) else -1 // 当前剩余电量百分比 (0.0 ~ 100.0)
-        info["battery_is_charging"] = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL // 当前是否在充电状态 (Boolean)
-        info["battery_plug_type"] = when (plugType) {      // 当前供电/充电来源方式 ("AC"-交流电直充, "USB"-USB数据线, "Wireless"-无线充电, "Battery"-未插线)
-            BatteryManager.BATTERY_PLUGGED_AC -> "AC"
-            BatteryManager.BATTERY_PLUGGED_USB -> "USB"
-            BatteryManager.BATTERY_PLUGGED_WIRELESS -> "Wireless"
-            else -> "Battery"
-        }
+        info["battery_level_percent"] =
+            if (level >= 0 && scale > 0) (level * 100 / scale.toFloat()) else -1 // 当前剩余电量百分比 (0.0 ~ 100.0)
+        info["battery_is_charging"] =
+            status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL // 当前是否在充电状态 (Boolean)
+        info["battery_plug_type"] =
+            when (plugType) {      // 当前供电/充电来源方式 ("AC"-交流电直充, "USB"-USB数据线, "Wireless"-无线充电, "Battery"-未插线)
+                BatteryManager.BATTERY_PLUGGED_AC -> "AC"
+                BatteryManager.BATTERY_PLUGGED_USB -> "USB"
+                BatteryManager.BATTERY_PLUGGED_WIRELESS -> "Wireless"
+                else -> "Battery"
+            }
 
         // ==========================================
         // 9. 网络基本连接类型 (Network Status)
@@ -444,55 +468,74 @@ object MyDeviceIdUtil {
     }
 
     /**
-     * 获取格式化后的 JSON 字符串，并包含字段含义的描述映射
+     * 获取格式化后的 JSON：每个字段含 key、描述、数据（数据值用括号包裹）。
      */
     fun getAllDeviceInfoJson(context: Context): String {
         val rawData = getAllDeviceInfoMap(context)
+        val fieldDescriptions = deviceInfoFieldDescriptions()
 
-        // 字段中文名称与含义描述的映射，方便直观查看
-        val fieldDescriptions = mapOf(
-            "android_id" to "Android ID (系统防刷/标识符)",
-            "brand" to "设备品牌",
-            "manufacturer" to "生产厂商",
-            "model" to "手机型号",
-            "product" to "产品内部代号",
-            "hardware" to "芯片/硬件平台",
-            "board" to "主板名称",
-            "device" to "设备工业设计名",
-            "supported_abis" to "支持的 CPU 架构指令集",
-            "os_release" to "Android 系统版本号",
-            "sdk_int" to "系统 API Level",
-            "security_patch" to "安全补丁日期",
-            "display_build_id" to "固件/系统构建版本 ID",
-            "fingerprint" to "唯一固件指纹签名串",
-            "screen_width_px" to "屏幕像素宽度 (px)",
-            "screen_height_px" to "屏幕像素高度 (px)",
-            "density_dpi" to "屏幕像素密度 (DPI)",
-            "density" to "dp与px转换系数",
-            "rom_total_bytes" to "内部存储(ROM)总空间 (字节)",
-            "rom_available_bytes" to "内部存储(ROM)可用空间 (字节)",
-            "ram_total_bytes" to "运行内存(RAM)总容量 (字节)",
-            "ram_available_bytes" to "当前可用运行内存 (字节)",
-            "ram_low_memory" to "系统是否处于低内存状态",
-            "language" to "系统语言代码",
-            "country" to "国家/地区代码",
-            "locale_tag" to "标准语言标签",
-            "timezone_id" to "时区 ID",
-            "timezone_display_name" to "时区显示名称",
-            "timezone_raw_offset" to "UTC 时区毫秒偏移量",
-            "battery_level_percent" to "当前电池电量百分比",
-            "battery_is_charging" to "当前是否正在充电",
-            "battery_plug_type" to "电源连接类型",
-            "is_wifi" to "是否连接了 Wi-Fi",
-            "is_cellular" to "是否连接了移动网络",
-            "is_vpn" to "是否开启了 VPN"
-        )
+        val fields = JSONObject()
+        rawData.forEach { (key, value) ->
+            fields.put(
+                key,
+                JSONObject().apply {
+                    put("描述", fieldDescriptions[key] ?: "")
+                    put("数据", wrapDataInParens(value))
+                }
+            )
+        }
 
-        val jsonResult = JSONObject()
-        jsonResult.put("field_descriptions", JSONObject(fieldDescriptions)) // 中文映射字段说明
-        jsonResult.put("device_data", JSONObject(rawData))                  // 实际提取到的设备数据
+        return JSONObject().put("fields", fields).toString(4)
+    }
 
-        return jsonResult.toString(4)
+    private fun deviceInfoFieldDescriptions(): Map<String, String> = mapOf(
+        "android_id" to "Android ID (系统防刷/标识符)",
+        "media_drm_id" to "MediaDrm 路径",
+        "brand" to "设备品牌",
+        "manufacturer" to "生产厂商",
+        "model" to "手机型号",
+        "product" to "产品内部代号",
+        "hardware" to "芯片/硬件平台",
+        "board" to "主板名称",
+        "device" to "设备工业设计名",
+        "supported_abis" to "支持的 CPU 架构指令集",
+        "os_release" to "Android 系统版本号",
+        "sdk_int" to "系统 API Level",
+        "security_patch" to "安全补丁日期",
+        "display_build_id" to "固件/系统构建版本 ID",
+        "fingerprint" to "唯一固件指纹签名串",
+        "screen_width_px" to "屏幕像素宽度 (px)",
+        "screen_height_px" to "屏幕像素高度 (px)",
+        "density_dpi" to "屏幕像素密度 (DPI)",
+        "density" to "dp与px转换系数",
+        "rom_total_bytes" to "内部存储(ROM)总空间 (字节)",
+        "rom_available_bytes" to "内部存储(ROM)可用空间 (字节)",
+        "ram_total_bytes" to "运行内存(RAM)总容量 (字节)",
+        "ram_available_bytes" to "当前可用运行内存 (字节)",
+        "ram_low_memory" to "系统是否处于低内存状态",
+        "language" to "系统语言代码",
+        "country" to "国家/地区代码",
+        "locale_tag" to "标准语言标签",
+        "timezone_id" to "时区 ID",
+        "timezone_display_name" to "时区显示名称",
+        "timezone_raw_offset" to "UTC 时区毫秒偏移量",
+        "battery_level_percent" to "当前电池电量百分比",
+        "battery_is_charging" to "当前是否正在充电",
+        "battery_plug_type" to "电源连接类型",
+        "is_wifi" to "是否连接了 Wi-Fi",
+        "is_cellular" to "是否连接了移动网络",
+        "is_vpn" to "是否开启了 VPN"
+    )
+
+    /** 展示用：将实际取值包在括号内，例如 (Xiaomi)、(["arm64-v8a"]) */
+    private fun wrapDataInParens(value: Any?): String {
+        val inner = when (value) {
+            null -> "null"
+            is List<*> -> JSONArray(value).toString()
+            is Array<*> -> JSONArray(value).toString()
+            else -> value.toString()
+        }
+        return inner
     }
 
     private fun getAndroidId(context: Context): String {
@@ -502,4 +545,44 @@ object MyDeviceIdUtil {
             ""
         }
     }
+
+    // Widevine 的官方 UUID
+    private val WIDEVINE_UUID = UUID.fromString("edef8ba9-79d6-4ace-a3c8-27dcd51d21ed")
+    private fun tryGetMediaDrmId(): String? {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.w(TAG, "MediaDrm requires API 18+")
+            return null
+        }
+
+        var mediaDrm: MediaDrm? = null
+        try {
+            mediaDrm = MediaDrm(WIDEVINE_UUID)
+            val deviceIdBytes = mediaDrm.getPropertyByteArray(MediaDrm.PROPERTY_DEVICE_UNIQUE_ID)
+
+            if (deviceIdBytes == null || deviceIdBytes.isEmpty()) {
+                Log.w(TAG, "MediaDrm returned empty device id")
+                return null
+            }
+
+            return bytesToHex(deviceIdBytes)
+        } catch (e: Exception) {
+            // 常见于模拟器、无 Widevine 的定制 ROM、Root 设备
+            Log.w(TAG, "MediaDrm failed: ${e.message}")
+            return null
+        } finally {
+            try {
+                mediaDrm?.close()
+            } catch (ignored: Exception) {
+            }
+        }
+    }
+
+    private fun bytesToHex(bytes: ByteArray): String {
+        val sb = StringBuilder(bytes.size * 2)
+        for (b in bytes) {
+            sb.append(String.format("%02x", b))
+        }
+        return sb.toString()
+    }
+
 }

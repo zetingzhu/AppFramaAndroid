@@ -3,6 +3,12 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:name=".MyApplication"
@@ -37,6 +43,21 @@
             android:name=".IntegrityRemediationActivity"
             android:exported="false"
             android:label="@string/integrity_remediation_title"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".KeyAttestationActivity"
+            android:exported="false"
+            android:label="@string/key_attestation_title"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".DeviceAttestManagerActivity"
+            android:exported="false"
+            android:label="@string/device_attest_manager_title"
+            android:theme="@style/Theme.AppFrame11" />
+        <activity
+            android:name=".DownloadQuestionnaireActivity"
+            android:exported="false"
+            android:label="@string/download_questionnaire_title"
             android:theme="@style/Theme.AppFrame11" />
     </application>
 

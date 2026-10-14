@@ -70,5 +70,29 @@ private fun EntryScreen(modifier: Modifier = Modifier) {
         ) {
             Text(stringResource(R.string.entry_integrity_remediation))
         }
+        Button(
+            onClick = {
+                context.startActivity(Intent(context, KeyAttestationActivity::class.java))
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.entry_key_attestation))
+        }
+        Button(
+            onClick = {
+                context.startActivity(Intent(context, DeviceAttestManagerActivity::class.java))
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.entry_device_attest_manager))
+        }
+        Button(
+            onClick = {
+                context.startActivity(Intent(context, DownloadQuestionnaireActivity::class.java))
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.entry_download_questionnaire))
+        }
     }
 }

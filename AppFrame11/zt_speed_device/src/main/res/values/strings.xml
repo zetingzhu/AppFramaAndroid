@@ -6,11 +6,24 @@
     <string name="device_info_title">设备信息 JSON</string>
     <string name="device_recall_title">Device Recall 测试</string>
     <string name="device_recall_cloud_project">Cloud Project Number</string>
-    <string name="device_recall_warmup">Warmup</string>
-    <string name="device_recall_request_token">Request Token</string>
+    <string name="device_recall_get_token">获取 Integrity Token</string>
+    <string name="device_recall_integrity_token">Integrity Token</string>
+    <string name="device_recall_access_token">OAuth Access Token (playintegrity)</string>
+    <string name="device_recall_decode_json">用 Token 解码 JSON</string>
     <string name="entry_integrity_remediation">Integrity 修复对话框验证</string>
     <string name="integrity_remediation_title">Integrity Remediation</string>
     <string name="integrity_remediation_show_recommended">按服务端 JSON 推荐弹框</string>
     <string name="integrity_remediation_show_get_licensed">强制 GET_LICENSED (1)</string>
     <string name="integrity_remediation_show_get_integrity">强制 GET_INTEGRITY (4)</string>
+    <string name="entry_key_attestation">硬件密钥 Attestation</string>
+    <string name="key_attestation_title">Key Attestation</string>
+    <string name="key_attestation_generate">获取证明密钥（StrongBox → TEE）</string>
+    <string name="entry_device_attest_manager">统一验真（Integrity → KeyAttest）</string>
+    <string name="device_attest_manager_title">Device Attest Manager</string>
+    <string name="device_attest_manager_request">获取验真材料</string>
+    <string name="entry_download_questionnaire">Download 文件读写</string>
+    <string name="download_questionnaire_title">Download 文件</string>
+    <string name="download_questionnaire_write">写入 Download 目录</string>
+    <string name="download_questionnaire_read">读取 Download 目录文件</string>
+    <string name="download_questionnaire_list">列出 Download 可见文件</string>
 </resources>

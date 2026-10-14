@@ -30,4 +30,6 @@ google 小红点 BadgeDrawable 使用
 实现dialogFragment 中多个dialog 的层级插入
 
 [zt_speed_device](zt_speed_device)
-各种设备id和密钥验证
+各种设备id和密钥验证 
+设备验真
+设备的一些基本信息

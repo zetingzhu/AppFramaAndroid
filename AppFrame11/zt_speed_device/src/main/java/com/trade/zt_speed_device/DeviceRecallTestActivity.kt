@@ -1,14 +1,14 @@
 package com.trade.zt_speed_device
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,16 +31,16 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.trade.zt_speed_device.ui.theme.AppFrame11Theme
+import java.util.concurrent.Executors
 
 /**
- * Device Recall（Play Integrity beta）客户端测试页。
- *
- * 流程：填 Cloud Project Number → Warmup → Request Token →
- * 将 token 交给服务端 decode / deviceRecall:write。
+ * Device Recall / Play Integrity：获取 token，并可 decode 为 verdict JSON。
  */
 class DeviceRecallTestActivity : ComponentActivity() {
 
     private lateinit var demo: DeviceRecallDemo
+    private val ioExecutor = Executors.newSingleThreadExecutor()
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,38 +48,47 @@ class DeviceRecallTestActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppFrame11Theme {
-                DeviceRecallScreen(demo = demo)
+                DeviceRecallScreen(
+                    demo = demo,
+                    packageName = packageName,
+                    decodeOnBg = { token, accessToken, onDone ->
+                        ioExecutor.execute {
+                            val result = IntegrityTokenDecoder.decode(
+                                packageName = packageName,
+                                integrityToken = token,
+                                accessToken = accessToken
+                            )
+                            mainHandler.post { onDone(result) }
+                        }
+                    }
+                )
             }
         }
+    }
+
+    override fun onDestroy() {
+        ioExecutor.shutdownNow()
+        super.onDestroy()
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DeviceRecallScreen(demo: DeviceRecallDemo) {
-    var cloudProjectText by remember { mutableStateOf("323092438212") }
+private fun DeviceRecallScreen(
+    demo: DeviceRecallDemo,
+    packageName: String,
+    decodeOnBg: (
+        token: String,
+        accessToken: String,
+        onDone: (IntegrityTokenDecoder.DecodeResult) -> Unit
+    ) -> Unit
+) {
+    var cloudProjectText by remember { mutableStateOf("655759993") }
+    var tokenText by remember { mutableStateOf("") }
+    var accessTokenText by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
-    var logText by remember {
-        mutableStateOf(buildString {
-            appendLine("Device Recall 测试说明")
-            appendLine("1) Play Console 开通 Play Integrity，并申请/开启 Device Recall (beta)")
-            appendLine("2) 填入关联的 Google Cloud 项目编号")
-            appendLine("3) 点 Warmup（prepareIntegrityToken，会刷新 deviceRecall）")
-            appendLine("4) 点 Request Token，把 token 发给服务端 decode")
-            appendLine("5) 服务端用 deviceRecall:write 写 bit（客户端不能直接写）")
-            appendLine()
-            appendLine("--- 服务端 verdict 中 deviceRecall 示例 ---")
-            appendLine(DeviceRecallDemo.SAMPLE_DEVICE_RECALL_VERDICT.trimIndent())
-            appendLine("--- 服务端 write API 示意 ---")
-            appendLine(DeviceRecallDemo.SAMPLE_WRITE_API.trimIndent())
-            appendLine("--- 运行日志 ---")
-        })
-    }
-
-    fun appendLog(line: String) {
-        Log.d(TAG, line)
-        logText = logText + line + "\n"
-    }
+    var resultText by remember { mutableStateOf("先获取 token，再解码为 JSON") }
+    var statusText by remember { mutableStateOf("package=$packageName") }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -103,70 +112,84 @@ private fun DeviceRecallScreen(demo: DeviceRecallDemo) {
                 enabled = !busy
             )
 
-            Row(
+            OutlinedTextField(
+                value = tokenText,
+                onValueChange = { tokenText = it.trim() },
+                label = { Text(stringResource(R.string.device_recall_integrity_token)) },
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                enabled = !busy,
+                minLines = 2,
+                maxLines = 4
+            )
+
+            OutlinedTextField(
+                value = accessTokenText,
+                onValueChange = { accessTokenText = it.trim() },
+                label = { Text(stringResource(R.string.device_recall_access_token)) },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !busy
+            )
+
+            Button(
+                onClick = {
+                    val projectNumber = cloudProjectText.toLongOrNull()
+                    if (projectNumber == null || projectNumber <= 0L) {
+                        statusText = "请填写有效的 Cloud Project Number"
+                        return@Button
+                    }
+                    busy = true
+                    statusText = "获取 token..."
+                    demo.requestIntegrityToken(projectNumber)
+                        .addOnSuccessListener { token ->
+                            busy = false
+                            tokenText = token
+                            statusText = "OK token length=${token.length}，已填入第二个输入框"
+                        }
+                        .addOnFailureListener { e ->
+                            busy = false
+                            tokenText = ""
+                            statusText = "FAIL: ${e.javaClass.simpleName}: ${e.message}"
+                        }
+                },
+                enabled = !busy,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Button(
-                    onClick = {
-                        val projectNumber = cloudProjectText.toLongOrNull()
-                        if (projectNumber == null || projectNumber <= 0L) {
-                            appendLog("ERROR: 请填写有效的 Cloud Project Number")
-                            return@Button
-                        }
-                        busy = true
-                        appendLog(">> prepareIntegrityToken($projectNumber) ...")
-                        demo.prepare(projectNumber)
-                            .addOnSuccessListener {
-                                busy = false
-                                appendLog("OK: warmup 成功，tokenProvider 已就绪（deviceRecall 已刷新）")
-                            }
-                            .addOnFailureListener { e ->
-                                busy = false
-                                appendLog("FAIL: warmup ${e.javaClass.simpleName}: ${e.message}")
-                            }
-                    },
-                    enabled = !busy,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(stringResource(R.string.device_recall_warmup))
-                }
-                Button(
-                    onClick = {
-                        if (!demo.hasProvider()) {
-                            appendLog("ERROR: 请先 Warmup")
-                            return@Button
-                        }
-                        busy = true
-                        val payload = "device_recall_demo_${System.currentTimeMillis()}"
-                        appendLog(">> requestToken payload=$payload")
-                        val task = demo.requestToken(payload)
-                        if (task == null) {
-                            busy = false
-                            appendLog("ERROR: tokenProvider 为空")
-                            return@Button
-                        }
-                        task.addOnSuccessListener { response ->
-                            busy = false
-                            val token = response.token()
-                            Log.w(TAG, "token:$token")
-                            appendLog("OK: 拿到 integrity token, length=${token.length}")
-                            appendLog("token(prefix)=${token.take(48)}...")
-                            appendLog("下一步：把完整 token POST 到服务端 decodeIntegrityToken，读取 deviceRecall")
-                        }.addOnFailureListener { e ->
-                            busy = false
-                            appendLog("FAIL: request ${e.javaClass.simpleName}: ${e.message}")
-                        }
-                    },
-                    enabled = !busy,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(stringResource(R.string.device_recall_request_token))
-                }
+                Text(stringResource(R.string.device_recall_get_token))
             }
 
+            Button(
+                onClick = {
+                    if (tokenText.isBlank()) {
+                        statusText = "请先获取或填写 Integrity Token"
+                        return@Button
+                    }
+                    if (accessTokenText.isBlank()) {
+                        statusText = "请填写带 playintegrity scope 的 OAuth Access Token"
+                        return@Button
+                    }
+                    busy = true
+                    statusText = "decodeIntegrityToken..."
+                    decodeOnBg(tokenText, accessTokenText) { result ->
+                        busy = false
+                        if (result.success) {
+                            resultText = result.json.orEmpty()
+                            statusText = "OK 已解码为 JSON"
+                        } else {
+                            statusText = "FAIL: ${result.errorMessage}"
+                        }
+                    }
+                },
+                enabled = !busy,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.device_recall_decode_json))
+            }
+
+            Text(text = statusText)
+
             Text(
-                text = logText,
+                text = resultText,
                 fontFamily = FontFamily.Monospace,
                 fontSize = 11.sp,
                 modifier = Modifier
@@ -177,5 +200,3 @@ private fun DeviceRecallScreen(demo: DeviceRecallDemo) {
         }
     }
 }
-
-private const val TAG = "DeviceRecallTest"
