@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">zt-ShimmerFrameLayout</string>
+    <string name="entry_title">ShimmerFrameLayout 演示</string>
+    <string name="entry_shimmer_sample">启动 ShimmerSampleAct</string>
+</resources>

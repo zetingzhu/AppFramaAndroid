@@ -33,3 +33,10 @@ google 小红点 BadgeDrawable 使用
 各种设备id和密钥验证 
 设备验真
 设备的一些基本信息
+
+[zt-shimmerframelayout](zt-shimmerframelayout)
+facebook 扫光布局
+
+
+[zt-blurviewsample](zt-blurviewsample)
+高斯模糊视图

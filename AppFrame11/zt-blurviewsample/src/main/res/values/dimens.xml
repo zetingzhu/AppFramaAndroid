@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="blur_banner_width">200dp</dimen>
+    <dimen name="blur_banner_height">56dp</dimen>
+    <dimen name="blur_header_height">160dp</dimen>
+</resources>

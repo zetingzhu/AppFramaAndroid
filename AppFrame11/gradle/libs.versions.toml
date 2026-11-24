@@ -28,8 +28,10 @@ ktor = "3.0.1"
 mcp = "0.10.0"
 blurry = "4.0.1"
 realtimeblurview = "1.2.1"
+dimezisBlurview = "version-4.0.0"
 firebaseInstallations = "19.1.2"
 playIntegrity = "1.6.0"
+activityKtx = "1.13.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,12 +71,14 @@ ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "
 mcp-kotlin-sdk = { group = "io.modelcontextprotocol", name = "kotlin-sdk", version.ref = "mcp" }
 blurry = { group = "jp.wasabeef", name = "blurry", version.ref = "blurry" }
 realtimeblurview = { group = "com.github.mmin18", name = "RealtimeBlurView", version.ref = "realtimeblurview" }
+blurview-dimezis = { group = "com.github.Dimezis", name = "BlurView", version.ref = "dimezisBlurview" }
 echatCore = { group = "com.echatsoft.echatsdk", name = "echatCore", version.ref = "echat" }
 echatconnection = { group = "com.echatsoft.echatsdk", name = "echatconnection", version.ref = "echat" }
 echatSdk = { group = "com.echatsoft.echatsdk", name = "echatSdk", version.ref = "echat" }
 echatandroid14 = { group = "com.echatsoft.echatsdk", name = "echatandroid14", version.ref = "echat" }
 firebase-installations = { group = "com.google.firebase", name = "firebase-installations", version.ref = "firebaseInstallations" }
 play-integrity = { group = "com.google.android.play", name = "integrity", version.ref = "playIntegrity" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

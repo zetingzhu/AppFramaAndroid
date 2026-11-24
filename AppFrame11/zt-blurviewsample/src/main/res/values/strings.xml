@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ZT-BlurViewSample</string>
+    <string name="entry_title">BlurView / RenderEffect 演示</string>
+    <string name="entry_blur_banner">打开磨砂 Banner（RenderEffect）</string>
+    <string name="entry_blur_dimezis">打开磨砂 Banner（Dimezis BlurView）</string>
+    <string name="blur_banner_title">RenderEffect 磨砂条</string>
+    <string name="blur_dimezis_banner_title">BlurView 磨砂条</string>
+    <string name="blur_dimezis_body_desc">按官方文档：正文包在 BlurTarget 内，BlurView 与之同级并 setupWith(BlurTarget)；悬浮条宽 200dp 可拖动，磨砂色为 blurOverlayColor。模糊快照随内容变化自动更新（无需手动 invalidate）。</string>
+    <string name="blur_radius_label">模糊半径（setBlurRadius）：%1$d</string>
+    <string name="blur_header_hint">此区域为 Banner 背后的彩色内容</string>
+    <string name="blur_body_title">白色内容区</string>
+    <string name="blur_body_desc">RenderEffect 页：PixelCopy 截屏为异步且需短暂隐藏磨砂条，不适合拖动时连续重绘，拖动仅平移；松手后再更新模糊。需跟手实时磨砂请用 Dimezis BlurView 演示页。</string>
+</resources>
